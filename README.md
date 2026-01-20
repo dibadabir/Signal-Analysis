@@ -70,6 +70,41 @@ The project lifecycle follows the CDIO approach:
 
 ---
 
+## 📊 Dataset Description
+
+### Dataset Overview
+This project uses the **OpenNeuro dataset: _EEG – 3-Stim Auditory Oddball and Rest in Parkinson’s Disease_**.
+
+The dataset contains **scalp EEG recordings from individuals with Parkinson’s disease** collected during
+both **resting-state** and a **three-stimulus auditory oddball task**, which is commonly used to study
+attention, cognitive processing, and event-related brain responses.
+
+### Key Characteristics
+- **Modality:** Electroencephalography (EEG)  
+- **Paradigms:**  
+  - Resting-state EEG  
+  - 3-stimulus auditory oddball task  
+- **Population:** 50 participants (25 Parkinson's disease patients & 25 Control versions)
+
+### Relevance to This Project
+This dataset is particularly well-suited to the project because:
+- Resting-state EEG enables analysis of **neural oscillations** associated with Parkinson’s disease
+- The auditory oddball task supports investigation of **cognitive and attentional processing**
+- The BIDS structure ensures **reproducibility, transparency, and compatibility** with modern EEG
+  analysis tools
+
+### Data Considerations
+EEG recordings include typical artifacts such as eye movements, muscle activity, and power-line noise.
+As a result, **systematic preprocessing** is required before feature extraction and modelling.
+All preprocessing decisions applied in this project are explicitly documented.
+
+### Ethical Use
+The dataset is fully anonymised and used strictly for **academic research purposes**.
+No diagnostic or clinical claims are made, and all results are interpreted as exploratory analytical
+findings rather than medical conclusions.
+
+---
+
 ## 🔬 System Pipeline
 
 ### 1. Data Understanding

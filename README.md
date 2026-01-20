@@ -123,9 +123,18 @@ The project lifecycle follows the CDIO approach:
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Structure (to be changed)
 
-
+├── data/
+│ ├── raw/ # Raw EEG data (BIDS format)
+│ └── derivatives/ # Preprocessed and feature-level data
+├── preprocessing/ # EEG preprocessing scripts
+├── feature_extraction/ # Feature extraction methods
+├── models/ # Machine learning and deep learning models
+├── evaluation/ # Evaluation scripts and metrics
+├── figures/ # Visualisations and pipeline diagrams
+├── README.md # Project documentation
+└── requirements.txt # Python dependencies
 
 ---
 

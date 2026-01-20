@@ -86,23 +86,6 @@ attention, cognitive processing, and event-related brain responses.
   - 3-stimulus auditory oddball task  
 - **Population:** 50 participants (25 Parkinson's disease patients & 25 Control versions)
 
-### Relevance to This Project
-This dataset is particularly well-suited to the project because:
-- Resting-state EEG enables analysis of **neural oscillations** associated with Parkinson’s disease
-- The auditory oddball task supports investigation of **cognitive and attentional processing**
-- The BIDS structure ensures **reproducibility, transparency, and compatibility** with modern EEG
-  analysis tools
-
-### Data Considerations
-EEG recordings include typical artifacts such as eye movements, muscle activity, and power-line noise.
-As a result, **systematic preprocessing** is required before feature extraction and modelling.
-All preprocessing decisions applied in this project are explicitly documented.
-
-### Ethical Use
-The dataset is fully anonymised and used strictly for **academic research purposes**.
-No diagnostic or clinical claims are made, and all results are interpreted as exploratory analytical
-findings rather than medical conclusions.
-
 ---
 
 ## 🔬 System Pipeline

@@ -80,9 +80,7 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 | Reference | CPz (re-referenced to average) |
 
 ### Subject Groups and Comparisons
-- **PD-ON vs CTL** — effect of PD with dopaminergic medication
 - **PD-OFF vs CTL** — effect of PD without medication
-- **PD-ON vs PD-OFF** — direct medication effect
 
 ---
 

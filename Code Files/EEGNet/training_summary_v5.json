@@ -1,0 +1,173 @@
+{
+  "wall_time_s": 5279.54,
+  "wall_time_hms": "01:27:59",
+  "config": {
+    "sfreq": 100.0,
+    "n_channels": 58,
+    "epoch_len_sec": 1.0,
+    "comparison": "OFF_CTL",
+    "condition": "N",
+    "use_fft_features": true,
+    "use_last_third": false,
+    "classify_t1_ms": 250,
+    "classify_t2_ms": 1000,
+    "F1": 4,
+    "D": 2,
+    "F2": 8,
+    "kernel_temporal": 125,
+    "dropout": 0.5,
+    "batch_size": 32,
+    "lr": 0.0001,
+    "weight_decay": 0.0005,
+    "max_epochs": 300,
+    "min_epochs": 30,
+    "patience": 40,
+    "grad_clip_norm": 1.0,
+    "warmup_epochs": 10,
+    "lr_patience": 12,
+    "lr_factor": 0.5,
+    "lr_min": 1e-06,
+    "n_folds": 5,
+    "normalize": false,
+    "augment_noise_std": 0.03,
+    "channel_drop_prob": 0.0,
+    "mixup_alpha": 0.3,
+    "label_smoothing": 0.1,
+    "imbalance_threshold": 1.5,
+    "num_workers": 4,
+    "device": "cpu"
+  },
+  "augmentation": {
+    "noise_std": 0.03,
+    "channel_drop_prob": 0.0,
+    "mixup_alpha": 0.3,
+    "label_smoothing": 0.1
+  },
+  "cv_metrics": {
+    "ep_acc": {
+      "mean": 0.732665,
+      "sd": 0.189398,
+      "min": 0.521387,
+      "max": 0.956923
+    },
+    "ep_auc": {
+      "mean": 0.767868,
+      "sd": 0.199237,
+      "min": 0.527884,
+      "max": 0.984262
+    },
+    "ep_bal_acc": {
+      "mean": 0.725013,
+      "sd": 0.193778,
+      "min": 0.517485,
+      "max": 0.956182
+    },
+    "subj_acc": {
+      "mean": 0.757143,
+      "sd": 0.234738,
+      "min": 0.5,
+      "max": 1.0
+    },
+    "subj_auc": {
+      "mean": 0.845833,
+      "sd": 0.149942,
+      "min": 0.666667,
+      "max": 1.0
+    },
+    "subj_bal_acc": {
+      "mean": 0.741667,
+      "sd": 0.24367,
+      "min": 0.5,
+      "max": 1.0
+    }
+  },
+  "cv_per_fold": [
+    {
+      "fold": 1,
+      "best_epoch": 47,
+      "n_val_epochs": 2224,
+      "n_val_subjs": 8,
+      "ep_acc": 0.9006294964028777,
+      "ep_auc": 0.9657434190091628,
+      "ep_bal_acc": 0.901314256872185,
+      "subj_acc": 1.0,
+      "subj_auc": 1.0,
+      "subj_bal_acc": 1.0
+    },
+    {
+      "fold": 2,
+      "best_epoch": 37,
+      "n_val_epochs": 2056,
+      "n_val_subjs": 7,
+      "ep_acc": 0.6867704280155642,
+      "ep_auc": 0.6774498648219986,
+      "ep_bal_acc": 0.6612459657587866,
+      "subj_acc": 0.7142857142857143,
+      "subj_auc": 0.75,
+      "subj_bal_acc": 0.6666666666666666
+    },
+    {
+      "fold": 3,
+      "best_epoch": 1,
+      "n_val_epochs": 2221,
+      "n_val_subjs": 8,
+      "ep_acc": 0.5213867627194957,
+      "ep_auc": 0.5278844427029763,
+      "ep_bal_acc": 0.5174850206527241,
+      "subj_acc": 0.5,
+      "subj_auc": 0.8125,
+      "subj_bal_acc": 0.5
+    },
+    {
+      "fold": 4,
+      "best_epoch": 87,
+      "n_val_epochs": 1950,
+      "n_val_subjs": 7,
+      "ep_acc": 0.9569230769230769,
+      "ep_auc": 0.984261515238658,
+      "ep_bal_acc": 0.9561816820090822,
+      "subj_acc": 1.0,
+      "subj_auc": 1.0,
+      "subj_bal_acc": 1.0
+    },
+    {
+      "fold": 5,
+      "best_epoch": 19,
+      "n_val_epochs": 2013,
+      "n_val_subjs": 7,
+      "ep_acc": 0.5976154992548435,
+      "ep_auc": 0.684000571153194,
+      "ep_bal_acc": 0.5888366323379799,
+      "subj_acc": 0.5714285714285714,
+      "subj_auc": 0.6666666666666666,
+      "subj_bal_acc": 0.5416666666666666
+    }
+  ],
+  "saved_files": [
+    "Signal Code/Outputs/eegnet_model/training_summary.json",
+    "Signal Code/Outputs/eegnet_model/cv_metrics_summary.tsv",
+    "Signal Code/Outputs/eegnet_model/roc_curves_cv.png",
+    "Signal Code/Outputs/eegnet_model/roc_curve_held_out.png",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_cv_aggregated.png",
+    "Signal Code/Outputs/eegnet_model/cv_results.tsv",
+    "Signal Code/Outputs/eegnet_model/held_out_results.tsv",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_held_out.png",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_train.png",
+    "Signal Code/Outputs/eegnet_model/cv_summary.png",
+    "Signal Code/Outputs/eegnet_model/learning_curves.png",
+    "Signal Code/Outputs/eegnet_model/final_model.pt",
+    "Signal Code/Outputs/eegnet_model/config.json",
+    "Signal Code/Outputs/eegnet_model/norm_mean.npy",
+    "Signal Code/Outputs/eegnet_model/norm_std.npy",
+    "Signal Code/Outputs/eegnet_model/fold1_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold1.pt",
+    "Signal Code/Outputs/eegnet_model/fold2_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold2.pt",
+    "Signal Code/Outputs/eegnet_model/fold3_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold3.pt",
+    "Signal Code/Outputs/eegnet_model/fold4_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold4.pt",
+    "Signal Code/Outputs/eegnet_model/fold5_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold5.pt"
+  ]
+}

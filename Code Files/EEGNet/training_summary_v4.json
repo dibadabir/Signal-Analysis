@@ -1,0 +1,172 @@
+{
+  "wall_time_s": 2909.57,
+  "wall_time_hms": "48:29",
+  "config": {
+    "sfreq": 100.0,
+    "n_channels": 58,
+    "epoch_len_sec": 1.0,
+    "comparison": "OFF_CTL",
+    "condition": "N",
+    "use_fft_features": true,
+    "use_last_third": false,
+    "classify_t1_ms": 250,
+    "classify_t2_ms": 1000,
+    "F1": 4,
+    "D": 2,
+    "F2": 8,
+    "kernel_temporal": 125,
+    "dropout": 0.7,
+    "batch_size": 64,
+    "lr": 0.0003,
+    "weight_decay": 0.001,
+    "max_epochs": 200,
+    "min_epochs": 20,
+    "patience": 25,
+    "grad_clip_norm": 1.0,
+    "lr_patience": 6,
+    "lr_factor": 0.5,
+    "lr_min": 1e-06,
+    "n_folds": 5,
+    "normalize": false,
+    "augment_noise_std": 0.05,
+    "channel_drop_prob": 0.05,
+    "mixup_alpha": 0.2,
+    "label_smoothing": 0.05,
+    "imbalance_threshold": 1.5,
+    "num_workers": 4,
+    "device": "cpu"
+  },
+  "augmentation": {
+    "noise_std": 0.05,
+    "channel_drop_prob": 0.05,
+    "mixup_alpha": 0.2,
+    "label_smoothing": 0.05
+  },
+  "cv_metrics": {
+    "ep_acc": {
+      "mean": 0.779682,
+      "sd": 0.070846,
+      "min": 0.663053,
+      "max": 0.836146
+    },
+    "ep_auc": {
+      "mean": 0.861608,
+      "sd": 0.106809,
+      "min": 0.677738,
+      "max": 0.948976
+    },
+    "ep_bal_acc": {
+      "mean": 0.780762,
+      "sd": 0.071147,
+      "min": 0.663378,
+      "max": 0.836615
+    },
+    "subj_acc": {
+      "mean": 0.833333,
+      "sd": 0.128425,
+      "min": 0.666667,
+      "max": 1.0
+    },
+    "subj_auc": {
+      "mean": 0.905,
+      "sd": 0.145934,
+      "min": 0.65,
+      "max": 1.0
+    },
+    "subj_bal_acc": {
+      "mean": 0.835,
+      "sd": 0.125748,
+      "min": 0.675,
+      "max": 1.0
+    }
+  },
+  "cv_per_fold": [
+    {
+      "fold": 1,
+      "best_epoch": 134,
+      "n_val_epochs": 2342,
+      "n_val_subjs": 8,
+      "ep_acc": 0.8351836037574722,
+      "ep_auc": 0.9043567551708962,
+      "ep_bal_acc": 0.8354808034055919,
+      "subj_acc": 1.0,
+      "subj_auc": 1.0,
+      "subj_bal_acc": 1.0
+    },
+    {
+      "fold": 2,
+      "best_epoch": 8,
+      "n_val_epochs": 2398,
+      "n_val_subjs": 9,
+      "ep_acc": 0.6630525437864887,
+      "ep_auc": 0.6777383979159204,
+      "ep_bal_acc": 0.6633780037772206,
+      "subj_acc": 0.6666666666666666,
+      "subj_auc": 0.65,
+      "subj_bal_acc": 0.675
+    },
+    {
+      "fold": 3,
+      "best_epoch": 36,
+      "n_val_epochs": 2316,
+      "n_val_subjs": 8,
+      "ep_acc": 0.7918825561312608,
+      "ep_auc": 0.9099225171280878,
+      "ep_bal_acc": 0.7970442134535383,
+      "subj_acc": 0.875,
+      "subj_auc": 0.9375,
+      "subj_bal_acc": 0.875
+    },
+    {
+      "fold": 4,
+      "best_epoch": 131,
+      "n_val_epochs": 2252,
+      "n_val_subjs": 8,
+      "ep_acc": 0.8361456483126111,
+      "ep_auc": 0.9489762276592053,
+      "ep_bal_acc": 0.8366152414304417,
+      "subj_acc": 0.875,
+      "subj_auc": 1.0,
+      "subj_bal_acc": 0.875
+    },
+    {
+      "fold": 5,
+      "best_epoch": 42,
+      "n_val_epochs": 2348,
+      "n_val_subjs": 8,
+      "ep_acc": 0.7721465076660988,
+      "ep_auc": 0.8670464709708896,
+      "ep_bal_acc": 0.7712897567548731,
+      "subj_acc": 0.75,
+      "subj_auc": 0.9375,
+      "subj_bal_acc": 0.75
+    }
+  ],
+  "saved_files": [
+    "Signal Code/Outputs/eegnet_model/training_summary.json",
+    "Signal Code/Outputs/eegnet_model/cv_metrics_summary.tsv",
+    "Signal Code/Outputs/eegnet_model/roc_curves_cv.png",
+    "Signal Code/Outputs/eegnet_model/roc_curve_held_out.png",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_cv_aggregated.png",
+    "Signal Code/Outputs/eegnet_model/cv_results.tsv",
+    "Signal Code/Outputs/eegnet_model/held_out_results.tsv",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_held_out.png",
+    "Signal Code/Outputs/eegnet_model/confusion_matrix_train.png",
+    "Signal Code/Outputs/eegnet_model/cv_summary.png",
+    "Signal Code/Outputs/eegnet_model/learning_curves.png",
+    "Signal Code/Outputs/eegnet_model/final_model.pt",
+    "Signal Code/Outputs/eegnet_model/config.json",
+    "Signal Code/Outputs/eegnet_model/norm_mean.npy",
+    "Signal Code/Outputs/eegnet_model/norm_std.npy",
+    "Signal Code/Outputs/eegnet_model/fold1_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold1.pt",
+    "Signal Code/Outputs/eegnet_model/fold2_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold2.pt",
+    "Signal Code/Outputs/eegnet_model/fold3_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold3.pt",
+    "Signal Code/Outputs/eegnet_model/fold4_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold4.pt",
+    "Signal Code/Outputs/eegnet_model/fold5_classification_report.txt",
+    "Signal Code/Outputs/eegnet_model/best_fold5.pt"
+  ]
+}

@@ -1,0 +1,25 @@
+Fold 4 Classification Report
+==================================================
+Best epoch     : 87
+Val epochs     : 1950
+Val subjects   : 7
+
+── Epoch-level ─────────────────────────────────
+              precision    recall  f1-score   support
+
+         CTL       0.94      0.98      0.96      1011
+      PD-OFF       0.97      0.94      0.95       939
+
+    accuracy                           0.96      1950
+   macro avg       0.96      0.96      0.96      1950
+weighted avg       0.96      0.96      0.96      1950
+
+── Subject-level ───────────────────────────────
+              precision    recall  f1-score   support
+
+         CTL       1.00      1.00      1.00         4
+      PD-OFF       1.00      1.00      1.00         3
+
+    accuracy                           1.00         7
+   macro avg       1.00      1.00      1.00         7
+weighted avg       1.00      1.00      1.00         7

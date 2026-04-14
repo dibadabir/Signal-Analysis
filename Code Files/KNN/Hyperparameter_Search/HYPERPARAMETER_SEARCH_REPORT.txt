@@ -1,0 +1,86 @@
+================================================================================
+KNN HYPERPARAMETER SEARCH - FINAL REPORT
+Target + Novelty Concatenated Preprocessing
+================================================================================
+
+DATASET SUMMARY
+--------------------------------------------------------------------------------
+Feature mode: target_novelty_concat
+Total epochs: 1299
+Features (input): 2784
+Total subjects: 47
+CTL samples: 632
+PD samples: 667
+Class balance: 51.35% PD
+
+SEARCH CONFIGURATION
+--------------------------------------------------------------------------------
+Algorithm: K-Nearest Neighbors
+K values tested: [9, 11, 13, 15]
+Feature counts tested: [40, 60, 80]
+Weights tested: ['uniform', 'distance']
+Distance metric: ['manhattan'] (fixed)
+Cross-validation: 5-Fold StratifiedGroupKFold (subject-aware)
+Total combinations evaluated: 24
+
+TRAINING PIPELINE (Leakage Prevention)
+--------------------------------------------------------------------------------
+CRITICAL: Feature selection and scaling are performed INSIDE each CV fold
+to prevent data leakage and ensure unbiased performance estimates.
+
+Inside each fold, for each hyperparameter combination:
+✓ Mutual Information feature selection → top N features (on training data only)
+✓ StandardScaler normalization (fit on training data only)
+✓ KNN training on selected + scaled features
+✓ Validation data transformed using training-fitted selector/scaler
+
+RANKING PRIORITY
+--------------------------------------------------------------------------------
+Configurations ranked by:
+  1. Highest mean sensitivity (recall for PD) - PRIMARY
+  2. Good ROC-AUC score
+  3. Good overall accuracy
+  4. Lower standard deviation (more stable across folds)
+
+TOP 10 CONFIGURATIONS
+--------------------------------------------------------------------------------
+Rank   K      Features   Weights      Accuracy     Sensitivity  Specificity  AUC         
+--------------------------------------------------------------------------------
+1      9      80         uniform      0.6768       0.6777       0.6753       0.7323      
+2      9      80         distance     0.6760       0.6760       0.6753       0.7323      
+3      11     80         uniform      0.6718       0.6700       0.6732       0.7364      
+4      11     80         distance     0.6710       0.6683       0.6732       0.7366      
+5      9      60         uniform      0.6601       0.6679       0.6475       0.7199      
+6      9      60         distance     0.6578       0.6679       0.6423       0.7179      
+7      13     80         distance     0.6712       0.6579       0.6837       0.7338      
+8      11     60         uniform      0.6703       0.6613       0.6743       0.7221      
+9      11     60         distance     0.6703       0.6613       0.6743       0.7202      
+10     13     80         uniform      0.6704       0.6562       0.6837       0.7316      
+
+BEST CONFIGURATION (RECOMMENDED)
+--------------------------------------------------------------------------------
+K (neighbors): 9
+Features: 80
+Weights: uniform
+Metric: manhattan
+
+Mean Accuracy:       0.6768 ± 0.0569
+Mean Sensitivity:    0.6777 ± 0.2503
+Mean Specificity:    0.6753
+Mean Precision:      0.6880
+Mean F1 Score:       0.6553
+Mean ROC-AUC:        0.7323 ± 0.1243
+
+INTERPRETATION
+--------------------------------------------------------------------------------
+The best configuration shows MODERATE STABILITY with sensitivity std dev of 0.2503 (near average of 0.2496).
+
+Sensitivity analysis:
+  The best configuration achieves 67.77% sensitivity,
+  meaning it identifies approximately 68% of PD cases correctly.
+  With 67.53% specificity, it correctly identifies
+  68% of control subjects.
+
+================================================================================
+END OF REPORT
+================================================================================

@@ -1,0 +1,295 @@
+================================================================================
+KNN CLASSIFICATION MODEL - FINAL REPORT
+Target + Novelty Concatenated Preprocessing
+Version: Conservative (K=9, Manhattan, 80 features)
+WITH 10-SUBJECT HOLDOUT TEST SET
+================================================================================
+
+DATASET SUMMARY
+--------------------------------------------------------------------------------
+Feature mode: target_novelty_concat
+Total epochs (full dataset): 1299
+Features (input): 2784
+  → Target features: 1392
+  → Novelty features: 1392
+Total subjects: 47
+Full dataset class balance:
+  CTL: 632 epochs
+  PD: 667 epochs
+  PD percentage: 51.35%
+
+HOLDOUT CONFIGURATION
+--------------------------------------------------------------------------------
+Holdout subjects (random_state=42): 10 subjects
+  → 5 PD subjects: [np.int64(0), np.int64(10), np.int64(11), np.int64(17), np.int64(19)]
+  → 5 CTL subjects: [np.int64(2), np.int64(4), np.int64(28), np.int64(30), np.int64(41)]
+
+DATA SPLIT
+--------------------------------------------------------------------------------
+Training pool (used for CV and final model training):
+  Epochs: 1028
+  PD: 524, CTL: 504
+  Subjects: 37
+  PD balance: 50.97%
+
+Holdout test set (held out until final evaluation):
+  Epochs: 271
+  PD: 143, CTL: 128
+  Subjects: 10
+  PD balance: 52.77%
+
+MODEL CONFIGURATION
+--------------------------------------------------------------------------------
+Algorithm: K-Nearest Neighbors
+K value: 9
+Distance metric: manhattan
+Weights: uniform
+Cross-validation: 5-Fold StratifiedGroupKFold (on training pool)
+
+PREPROCESSING PIPELINE
+--------------------------------------------------------------------------------
+✓ Bad channel detection & interpolation
+✓ Average re-referencing
+✓ Notch filtering (60 Hz + harmonics)
+✓ Bandpass filtering (0.5-40 Hz)
+✓ ICA artifact removal (EOG components)
+✓ Channel selection (59 standard 10-20)
+✓ Event-locked epoching (-250 to +1250 ms)
+✓ Peak-to-peak artifact rejection (>150 µV)
+✓ Multi-stage artifact detection (PTP, kurtosis, muscle)
+✓ 1,392 Welch PSD features per condition
+✓ Target + Novelty concatenated (2,784 total features)
+✓ Trial matching (balanced target/novelty counts)
+
+TRAINING PIPELINE (Leakage Prevention)
+--------------------------------------------------------------------------------
+CRITICAL: Feature selection and scaling are performed INSIDE each CV fold
+to prevent data leakage and ensure unbiased performance estimates.
+
+Inside each fold:
+✓ Mutual Information feature selection → 80 features (on training data only)
+✓ StandardScaler normalization (fit on training data only)
+✓ KNN training on selected + scaled features
+✓ Validation data transformed using training-fitted selector/scaler
+
+PER-FOLD CROSS-VALIDATION PERFORMANCE
+--------------------------------------------------------------------------------
+Fold   Train Acc    Val Acc      Val Sens     Val Spec     Val AUC     
+--------------------------------------------------------------------------------
+1      0.8791       0.6020       0.3707       0.9176       0.6708      
+2      0.9032       0.6792       0.8673       0.4646       0.7025      
+3      0.8650       0.7539       0.7303       0.7745       0.8112      
+4      0.8975       0.7085       0.9326       0.5273       0.7978      
+5      0.9552       0.5378       0.3333       0.7593       0.5238      
+
+MEAN CROSS-VALIDATION PERFORMANCE (5-FOLD, TRAINING POOL)
+--------------------------------------------------------------------------------
+Accuracy:           0.6563 ± 0.0863
+Sensitivity (Recall): 0.6468 ± 0.2792
+Specificity:        0.6887
+Precision:          0.6925 ± 0.1080
+F1 Score:           0.6329 ± 0.1491
+False Negative Rate: 0.3532
+ROC-AUC:            0.7012 ± 0.1037
+
+DETAILED FOLD-BY-FOLD RESULTS
+--------------------------------------------------------------------------------
+
+FOLD 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=827, Val=201
+Subject counts: Train=30, Val=7
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8791  |  Val Accuracy:        0.6020
+Train Precision:        0.9140  |  Val Precision:       0.8600
+Train Recall:           0.8333  |  Val Recall:          0.3707
+Train F1 Score:         0.8718  |  Val F1 Score:        0.5181
+Train ROC-AUC:          0.9507  |  Val ROC-AUC:         0.6708
+
+Sensitivity (Recall):   0.3707  (True Positive Rate)
+Specificity:            0.9176  (True Negative Rate)
+False Negative Rate:    0.6293  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=78   FP=7  
+  FN=73   TP=43 
+
+FOLD 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=816, Val=212
+Subject counts: Train=29, Val=8
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.9032  |  Val Accuracy:        0.6792
+Train Precision:        0.9462  |  Val Precision:       0.6490
+Train Recall:           0.8564  |  Val Recall:          0.8673
+Train F1 Score:         0.8991  |  Val F1 Score:        0.7424
+Train ROC-AUC:          0.9748  |  Val ROC-AUC:         0.7025
+
+Sensitivity (Recall):   0.8673  (True Positive Rate)
+Specificity:            0.4646  (True Negative Rate)
+False Negative Rate:    0.1327  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=46   FP=53 
+  FN=15   TP=98 
+
+FOLD 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=837, Val=191
+Subject counts: Train=30, Val=7
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8650  |  Val Accuracy:        0.7539
+Train Precision:        0.9149  |  Val Precision:       0.7386
+Train Recall:           0.8161  |  Val Recall:          0.7303
+Train F1 Score:         0.8627  |  Val F1 Score:        0.7345
+Train ROC-AUC:          0.9424  |  Val ROC-AUC:         0.8112
+
+Sensitivity (Recall):   0.7303  (True Positive Rate)
+Specificity:            0.7745  (True Negative Rate)
+False Negative Rate:    0.2697  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=79   FP=23 
+  FN=24   TP=65 
+
+FOLD 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=829, Val=199
+Subject counts: Train=30, Val=7
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8975  |  Val Accuracy:        0.7085
+Train Precision:        0.9014  |  Val Precision:       0.6148
+Train Recall:           0.9034  |  Val Recall:          0.9326
+Train F1 Score:         0.9024  |  Val F1 Score:        0.7411
+Train ROC-AUC:          0.9719  |  Val ROC-AUC:         0.7978
+
+Sensitivity (Recall):   0.9326  (True Positive Rate)
+Specificity:            0.5273  (True Negative Rate)
+False Negative Rate:    0.0674  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=58   FP=52 
+  FN=6    TP=83 
+
+FOLD 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=803, Val=225
+Subject counts: Train=29, Val=8
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.9552  |  Val Accuracy:        0.5378
+Train Precision:        0.9448  |  Val Precision:       0.6000
+Train Recall:           0.9681  |  Val Recall:          0.3333
+Train F1 Score:         0.9563  |  Val F1 Score:        0.4286
+Train ROC-AUC:          0.9931  |  Val ROC-AUC:         0.5238
+
+Sensitivity (Recall):   0.3333  (True Positive Rate)
+Specificity:            0.7593  (True Negative Rate)
+False Negative Rate:    0.6667  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=82   FP=26 
+  FN=78   TP=39 
+
+================================================================================
+HOLDOUT TEST SET RESULTS - 10 SUBJECTS
+================================================================================
+
+HOLDOUT EPOCH-LEVEL EVALUATION
+--------------------------------------------------------------------------------
+Accuracy:           0.5018
+Sensitivity (Recall): 0.6294
+Specificity:        0.3594
+Precision:          0.5233
+F1 Score:           0.5714
+ROC-AUC:            0.5847
+
+Confusion Matrix (Holdout Epochs):
+  TN=46   FP=82   (Predicted CTL)
+  FN=53   TP=90   (Predicted PD)
+  (True CTL)  (True PD)
+
+HOLDOUT SUBJECT-LEVEL EVALUATION (Majority Vote)
+--------------------------------------------------------------------------------
+Subject      True Label      Predicted       Epochs     PD Votes     CTL Votes      
+--------------------------------------------------------------------------------
+sub-000       PD              CTL             29         0            29             
+sub-002       CTL             PD              29         24           5              
+sub-004       CTL             PD              28         20           8              
+sub-010       PD              PD              30         29           1              
+sub-011       PD              CTL             29         6            23             
+sub-017       PD              PD              28         28           0              
+sub-019       PD              PD              27         27           0              
+sub-028       CTL             PD              17         12           5              
+sub-030       CTL             CTL             28         9            19             
+sub-041       CTL             PD              26         17           9              
+
+Subject-level Majority Vote Performance:
+  Accuracy:    0.4000
+  Sensitivity: 0.6000
+  Specificity: 0.2000
+  F1 Score:    0.5000
+  Confusion Matrix: TN=1, FP=4, FN=2, TP=3
+
+HOLDOUT SUBJECT-LEVEL EVALUATION (Mean Probability, threshold=0.5)
+--------------------------------------------------------------------------------
+Subject      True Label      Predicted       Mean Prob       Epochs    
+--------------------------------------------------------------------------------
+sub-000       PD              CTL             0.0038          29        
+sub-002       CTL             PD              0.6360          29        
+sub-004       CTL             PD              0.6111          28        
+sub-010       PD              PD              0.9000          30        
+sub-011       PD              CTL             0.3487          29        
+sub-017       PD              PD              0.8770          28        
+sub-019       PD              PD              0.9877          27        
+sub-028       CTL             PD              0.6667          17        
+sub-030       CTL             CTL             0.4087          28        
+sub-041       CTL             PD              0.6111          26        
+
+Subject-level Mean Probability Performance:
+  Accuracy:    0.4000
+  Sensitivity: 0.6000
+  Specificity: 0.2000
+  F1 Score:    0.5000
+  Confusion Matrix: TN=1, FP=4, FN=2, TP=3
+
+================================================================================
+SUMMARY & INTERPRETATION
+================================================================================
+
+Cross-Validation Performance (on training pool - non-holdout subjects only):
+The conservative KNN model (K=9, Manhattan, 80 features) achieved a mean
+accuracy of 65.63% across 5-fold cross-validation, with ROC-AUC
+of 0.701, using target + novelty concatenated preprocessing.
+
+Key CV findings:
+• Sensitivity (recall): 64.68% - captures 65% of PD cases
+• Specificity: 68.87% - correctly identifies 69% of controls
+• False Negative Rate: 35.32% - misses 35% of actual PD cases
+• F1 Score: 0.6329 - balanced precision-recall performance
+
+Holdout Test Performance (final external validation on 10 held-out subjects):
+On the 10 held-out subjects (never seen during model development):
+
+Epoch-level results:
+• Accuracy: 50.18%
+• Sensitivity: 62.94%
+• Specificity: 35.94%
+
+Subject-level results (Majority Vote):
+• Accuracy: 40.00%
+• Sensitivity: 60.00%
+• Specificity: 20.00%
+
+Data leakage prevention:
+• Holdout subjects (10 subjects) are NEVER used in cross-validation
+• Holdout subjects are NEVER used when fitting feature selectors or scalers
+• Feature selection (mutual information) is performed independently within
+  each CV fold using training data only
+• Final model feature selection and scaling is fit ONLY on non-holdout data
+• This ensures unbiased performance estimates on the holdout set
+================================================================================

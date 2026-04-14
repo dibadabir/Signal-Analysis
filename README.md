@@ -14,12 +14,10 @@ Parkinson's disease is a progressive neurological disorder associated with abnor
 observable through electroencephalography (EEG). This project designs and implements a **modular EEG
 analysis pipeline** that processes raw EEG signals from a three-stimulus auditory oddball paradigm,
 extracts meaningful features, and evaluates a Support Vector Machine (SVM) model to support research
-into cognitive impairments in PD — specifically the neural correlates of attention during target
-stimulus processing.
+into cognitive impairments in PD.
 
 The pipeline focuses on classifying PD patients (OFF medication) against healthy controls (CTL),
-enabling analysis of unmedicated Parkinson's disease effects on EEG biomarkers. Model interpretability
-is provided through SHAP (SHapley Additive exPlanations) analysis.
+enabling analysis of unmedicated Parkinson's disease effects on EEG biomarkers.
 
 The system follows the CDIO (Conceive–Design–Implement–Operate) framework and reflects industry-style
 AI development practices within a healthcare research context.
@@ -47,13 +45,8 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 
 ### CDIO Framework
 
-- Conceive — Problem definition, domain research, ethical analysis, and definition of aims and constraints
-- Design — End-to-end EEG pipeline design including preprocessing strategy, feature extraction,
-  model selection (RBF SVM), and evaluation planning
-- Implement — Development of preprocessing, feature extraction, and modelling code with iterative
-  experimentation and continuous validation
-- Operate — Demonstration of a working AI prototype, SHAP-based interpretation of results,
-  and reflection on limitations
+<img width="660" height="422" alt="Screenshot 2026-04-14 at 16 44 08" src="https://github.com/user-attachments/assets/77cb1e9b-a107-4a7b-b0f7-7bef328f5799" />
+
 
 ### Agile Practices
 - Iterative and incremental development across multiple notebook versions
@@ -65,7 +58,7 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 ## 📊 Dataset Description
 
 ### Dataset
-OpenNeuro ds003490 — *EEG – 3-Stimulus Auditory Oddball and Rest in Parkinson's Disease*
+[OpenNeuro ds003490](https://openneuro.org/datasets/ds003490/versions/1.1.0)
 
 ### Key Characteristics
 | Property | Detail |
@@ -87,7 +80,7 @@ OpenNeuro ds003490 — *EEG – 3-Stimulus Auditory Oddball and Rest in Parkinso
 
 ## 🔬 System Pipeline
 
-### Step 1 — Preprocessing (`Final_Pre_processing_for_SVM.ipynb`)
+### Step 1 — Preprocessing
 
 - Load BrainVision `.vhdr` files via MNE-BIDS on Google Colab
 - Focus on a 16-channel subset for cleaner classical ML features:
@@ -127,7 +120,7 @@ Frequency bands used:
 | Alpha | 8–12 Hz |
 | Beta | 12–30 Hz |
 
-### Step 3 — SVM Classification (`3rd_version_of_SVM.ipynb`)
+### Step 3 — SVM Classification
 
 #### Data Splitting (Subject-Aware)
 - 80% train/val — 20% held-out test via `GroupShuffleSplit` (no subject overlap)
@@ -201,7 +194,7 @@ Key practices underpinning these scores:
 
 ---
 
-## 🚀 Deployment — Streamlit Prototype (`Steamlit_.ipynb`)
+## 🚀 Deployment — Streamlit Prototype
 
 The trained SVM is deployed as a clinician-facing web application built with Streamlit and hosted
 on Google Colab via an ngrok tunnel. The app exposes the full preprocessing-to-prediction pipeline
@@ -232,10 +225,7 @@ preprocesses them, extracts features, and the loaded SVM returns a subject-level
   channels, ICA components removed, detected event annotation key and code, feature count, and
   a per-epoch probability table with CSV download
 
-2 — About Us
-Describes the project team and academic context.
-
-3 — Ethical AI
+2 — Ethical AI
 Summarises the EthiCheck AI Ethics Assessment results (overall grade: Good; risk profile:
 Medium) and offers a download button for the full PDF report.
 
@@ -271,18 +261,6 @@ print(public_url)   # open this URL to access the app
 > [ngrok.com](https://ngrok.com). The ngrok token in the repository notebook must be rotated
 > before sharing publicly.
 
-### Key Configuration Constants (`app.py`)
-
-| Constant | Value | Purpose |
-|---|---|---|
-| `MODEL_PATH` | Google Drive path | Location of `best_svm_model.joblib` |
-| `LOGO_PATH` | Google Drive path | Optional project logo (JPEG) |
-| `ETHICS_REPORT_PATH` | Google Drive path | EthiCheck PDF for download |
-| `SUBJECT_THRESHOLD` | `0.51` | Decision boundary for subject-level classification |
-| `RESAMPLE_SFREQ` | `250.0 Hz` | Must match training preprocessing |
-| `BANDPASS` | `(0.5, 40.0)` | Must match training preprocessing |
-| `DEFAULT_NOTCH_FREQ` | `50.0 Hz` | UK mains frequency |
-
 ### Input File Format
 
 | File | Required | Description |
@@ -300,8 +278,6 @@ print(public_url)   # open this URL to access the app
 | Justyna Dobersztajn | App interface & design, project development |
 | Aleeza Azad | Experimentation, analysis, model development |
 | Diba Dabiransari | Experimentation, analysis, model development |
-
-All members are final-year students on the Applied Artificial Intelligence undergraduate programme.
 
 ---
 

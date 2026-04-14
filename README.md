@@ -1,9 +1,9 @@
 # 🧠 EEG-Based AI System for Parkinson's Disease Analysis
 
-An end-to-end **Artificial Intelligence (AI) pipeline** for EEG signal analysis, developed as part of the  
-**COS6032-E – Industry AI Project**.  
-This project explores the use of **machine learning techniques** to extract EEG-based biomarkers relevant
-to **Parkinson's disease (PD)**, with a strong emphasis on **technical rigour, reproducibility, and
+An end-to-end Artificial Intelligence (AI) pipeline for EEG signal analysis, developed as part of the  
+COS6032-E – Industry AI Project.  
+This project explores the use of machine learning techniques to extract EEG-based biomarkers relevant
+to Parkinson's disease (PD), with a strong emphasis on **technical rigour, reproducibility, and
 responsible AI practice**.
 
 ---
@@ -17,11 +17,11 @@ extracts meaningful features, and evaluates a Support Vector Machine (SVM) model
 into cognitive impairments in PD — specifically the neural correlates of attention during target
 stimulus processing.
 
-The pipeline focuses on classifying **PD patients (OFF medication)** against **healthy controls (CTL)**,
+The pipeline focuses on classifying PD patients (OFF medication) against healthy controls (CTL),
 enabling analysis of unmedicated Parkinson's disease effects on EEG biomarkers. Model interpretability
-is provided through **SHAP (SHapley Additive exPlanations)** analysis.
+is provided through SHAP (SHapley Additive exPlanations) analysis.
 
-The system follows the **CDIO (Conceive–Design–Implement–Operate)** framework and reflects industry-style
+The system follows the CDIO (Conceive–Design–Implement–Operate) framework and reflects industry-style
 AI development practices within a healthcare research context.
 
 ---
@@ -35,9 +35,9 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 ### Objectives
 - Preprocess raw BrainVision EEG recordings using established signal-processing techniques (filtering,
   ICA, bad channel rejection, re-referencing)
-- Extract **Event-Related Potential (ERP)** and **spectral bandpower** features from target-locked epochs
-- Classify **PD-OFF vs CTL** using a spectral + ERP SVM with full cross-validation and threshold optimisation
-- Identify spatially and spectrally informative features via **SHAP value analysis**
+- Extract Event-Related Potential (ERP) and spectral bandpower features from target-locked epochs
+- Classify PD-OFF vs CTL using a spectral + ERP SVM with full cross-validation and threshold optimisation
+- Identify spatially and spectrally informative features via SHAP value analysis
 - Ensure ethical, transparent, and responsible AI development
 - Provide clear documentation and reproducible workflows
 
@@ -47,12 +47,12 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 
 ### CDIO Framework
 
-- **Conceive** — Problem definition, domain research, ethical analysis, and definition of aims and constraints
-- **Design** — End-to-end EEG pipeline design including preprocessing strategy, feature extraction,
+- Conceive — Problem definition, domain research, ethical analysis, and definition of aims and constraints
+- Design — End-to-end EEG pipeline design including preprocessing strategy, feature extraction,
   model selection (RBF SVM), and evaluation planning
-- **Implement** — Development of preprocessing, feature extraction, and modelling code with iterative
+- Implement — Development of preprocessing, feature extraction, and modelling code with iterative
   experimentation and continuous validation
-- **Operate** — Demonstration of a working AI prototype, SHAP-based interpretation of results,
+- Operate — Demonstration of a working AI prototype, SHAP-based interpretation of results,
   and reflection on limitations
 
 ### Agile Practices
@@ -65,7 +65,7 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 ## 📊 Dataset Description
 
 ### Dataset
-**OpenNeuro ds003490** — *EEG – 3-Stimulus Auditory Oddball and Rest in Parkinson's Disease*
+OpenNeuro ds003490 — *EEG – 3-Stimulus Auditory Oddball and Rest in Parkinson's Disease*
 
 ### Key Characteristics
 | Property | Detail |
@@ -77,11 +77,11 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 | PD sessions | 2 sessions per patient: medication ON and OFF |
 | CTL sessions | 1 session per control |
 | Original sampling rate | 500 Hz |
-| Resampled to | **250 Hz** (post-preprocessing) |
+| Resampled to | 250 Hz (post-preprocessing) |
 | Reference | CPz (re-referenced to average) |
 
 ### Subject Groups and Comparisons
-- **PD-OFF vs CTL** — Classification target: effect of unmedicated Parkinson's disease on EEG biomarkers
+- PD-OFF vs CTL — Classification target: effect of unmedicated Parkinson's disease on EEG biomarkers
 
 ---
 
@@ -90,33 +90,33 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 ### Step 1 — Preprocessing (`Final_Pre_processing_for_SVM.ipynb`)
 
 - Load BrainVision `.vhdr` files via MNE-BIDS on Google Colab
-- Focus on a **16-channel subset** for cleaner classical ML features:
+- Focus on a 16-channel subset for cleaner classical ML features:
   `Fp1, Fp2, F3, F4, Fz, FC1, FC2, FCz, C3, C4, Cz, P3, P4, Pz, T7, T8`
 - Bad channel detection: flat threshold ≤ 1 µV; noisy z-score > 3.0
   (Fp1/Fp2 protected as EOG proxies; max 30% of channels may be marked bad)
 - Spherical spline interpolation of bad channels
 - Average re-referencing (CPz recovered before re-reference)
-- Bandpass filter: **0.5–40 Hz**; notch filter: **50 Hz** (UK mains frequency)
-- Resample to **250 Hz**
+- Bandpass filter: 0.5–40 Hz; notch filter: 50 Hz (UK mains frequency)
+- Resample to 250 Hz
 - ICA: fitted on 1 Hz high-pass copy (`n_components=0.99` variance); blink/heartbeat
   components removed using Fp1/Fp2 as EOG proxies
-- **Target-only epoching**: event code 200 (S200), window **−200 to +1000 ms**,
+- Target-only epoching: event code 200 (S200), window −200 to +1000 ms,
   baseline correction (−200 to 0 ms), amplitude rejection at 150 µV peak-to-peak
-- **Output:** per-subject, per-session `.fif` files:
+- Output: per-subject, per-session `.fif` files:
   `sub-XXX_OFF-epo.fif`, `sub-XXX_CTL-epo.fif`
 
 ### Step 2 — Feature Extraction
 
-Features are extracted from a **9-channel clinical subset**: `F3, F4, Fz, C3, C4, Cz, P3, P4, Pz`
+Features are extracted from a 9-channel clinical subset: `F3, F4, Fz, C3, C4, Cz, P3, P4, Pz`
 
 For each epoch, the following feature groups are computed:
 
-- **Absolute bandpower** — Welch PSD mean power per channel × band
-- **Relative bandpower** — Band power normalised by total power per channel × band
-- **Band ratios** — Per channel: theta/beta, alpha/theta, alpha/beta
-- **ERP window means** — Mean amplitude per channel in three post-stimulus windows:
+- Absolute bandpower — Welch PSD mean power per channel × band
+- Relative bandpower — Band power normalised by total power per channel × band
+- Band ratios — Per channel: theta/beta, alpha/theta, alpha/beta
+- ERP window means — Mean amplitude per channel in three post-stimulus windows:
   250–400 ms, 400–700 ms, 700–1000 ms
-- **Global summaries** — Scalp-average relative power for delta, theta, alpha, beta
+- Global summaries — Scalp-average relative power for delta, theta, alpha, beta
 
 Frequency bands used:
 
@@ -130,8 +130,8 @@ Frequency bands used:
 ### Step 3 — SVM Classification (`3rd_version_of_SVM.ipynb`)
 
 #### Data Splitting (Subject-Aware)
-- **80% train/val — 20% held-out test** via `GroupShuffleSplit` (no subject overlap)
-- Within train/val: **75% train — 25% validation** via a second `GroupShuffleSplit`
+- 80% train/val — 20% held-out test via `GroupShuffleSplit` (no subject overlap)
+- Within train/val: 75% train — 25% validation via a second `GroupShuffleSplit`
 - Training set balanced by undersampling to equal class counts; cap of 60 epochs per subject
 
 #### SVM Pipeline
@@ -158,11 +158,11 @@ VarianceThreshold → StandardScaler → SelectKBest(f_classif, k=60)
 
 SHAP values are computed on the trained SVM to explain feature contributions:
 
-- **Top 25 features by SHAP importance** — `P4_beta_rel` is the most discriminative single feature,
-  followed by frontal delta/theta/beta relative power at F3 and Fz (see figure below)
-- **Feature group contributions** — alpha/beta ratio (19.3%) and beta relative power (15.6%)
+- Top 25 features by SHAP importance — `P4_beta_rel` is the most discriminative single feature,
+  followed by frontal delta/theta/beta relative power at F3 and Fz
+- Feature group contributions — alpha/beta ratio (19.3%) and beta relative power (15.6%)
   collectively account for over a third of total SHAP importance
-- **Channel-level SHAP map** — P4, Fz, and F3 carry the highest aggregate importance;
+- Channel-level SHAP map — P4, Fz, and F3 carry the highest aggregate importance;
   visualised as a topographic bubble map
 
 > SHAP results indicate the SVM relies primarily on **relative beta and delta power at posterior
@@ -179,73 +179,31 @@ SHAP values are computed on the trained SVM to explain feature contributions:
 
 ---
 
-## 📂 Repository Structure
-
-```
-EEG-PD-Analysis/
-│
-├── Final_Pre_processing_for_SVM.ipynb   # Step 1: preprocessing → .fif epoch files
-├── 3rd_version_of_SVM.ipynb             # Steps 2–5: feature extraction, SVM, SHAP
-├── Steamlit_.ipynb                      # Step 6: Streamlit app launch via ngrok (Colab)
-│   └── app.py                           # Written to /content/app.py at runtime
-│
-├── data/
-│   └── ds003490/                        # BIDS dataset (not included in repo)
-│       ├── participants.tsv
-│       └── sub-XXX/
-│
-├── Outputs/
-│   ├── cache_epochs_binary/             # Per-session .fif epoch files
-│   ├── qc_plots_binary/                 # QC plots per subject
-│   ├── svm_final_clean_attempt/
-│   │   ├── best_svm_model.joblib        # Trained SVM model (loaded by Streamlit app)
-│   │   ├── svm_all_results.xlsx         # Full results workbook
-│   │   ├── fold_results_epoch.csv
-│   │   ├── fold_results_subject.csv
-│   │   ├── epoch_summary_stats.csv
-│   │   ├── subject_summary_stats.csv
-│   │   ├── gridsearch_results.csv
-│   │   ├── selected_feature_scores.csv
-│   │   └── svm_metrics_summary.csv
-│   └── preprocessing_summary.tsv
-│
-└── README.md
-```
-
----
-
 ## ⚖️ Ethical and Responsible AI Considerations
 
-The project was evaluated against six responsible AI dimensions, achieving an average score of **7.77 / 10**:
+The project was evaluated against six responsible AI dimensions, achieving an average score of 7.77 / 10:
 
-| Dimension | Score |
-|---|---|
-| Fairness & Bias | 7.5 |
-| Privacy & Data Protection | 7.6 |
-| Transparency & Explainability | 7.5 |
-| Human Oversight | 8.5 |
-| Organisational Effectiveness | 8.5 |
-| Risk Management & Safety | 7.0 |
+![Ethical AI Radar Chart](<img width="724" height="716" alt="Ethic report" src="https://github.com/user-attachments/assets/48e7541c-c8fc-4a12-ad2c-f8f29cd7e6eb" />)
 
 Key practices underpinning these scores:
 
-- **Data Privacy** — All EEG data is fully anonymised; no personally identifiable information is used
-- **Transparency** — All preprocessing decisions (ICA thresholds, bad channel detection,
+- Data Privacy — All EEG data is fully anonymised; no personally identifiable information is used
+- Transparency — All preprocessing decisions (ICA thresholds, bad channel detection,
   epoch rejection criteria) are logged and reproducible; SHAP values provide post-hoc explanations
-- **Clinical Responsibility** — The system is intended for **research and decision-support only**;
+- Clinical Responsibility — The system is intended for research and decision-support only;
   no automated diagnosis or clinical claims are made
-- **Bias & Fairness** — Balanced subject counts (25 PD, 25 CTL); subject-wise normalisation prevents
+- Bias & Fairness — Balanced subject counts (25 PD, 25 CTL); subject-wise normalisation prevents
   amplitude-based shortcuts; GroupShuffleSplit and GroupKFold prevent subject leakage across splits
-- **Data Leakage Prevention** — StandardScaler fitted on training fold only; feature selection and PCA
+- Data Leakage Prevention — StandardScaler fitted on training fold only; feature selection and PCA
   fitted within each fold; group-aware splitting throughout
-- **Hyperparameter Transparency** — All hyperparameters documented with rationale; fold-wise metrics
+- Hyperparameter Transparency — All hyperparameters documented with rationale; fold-wise metrics
   reported to evidence performance stability
 
 ---
 
 ## 🚀 Deployment — Streamlit Prototype (`Steamlit_.ipynb`)
 
-The trained SVM is deployed as a **clinician-facing web application** built with Streamlit and hosted
+The trained SVM is deployed as a clinician-facing web application built with Streamlit and hosted
 on Google Colab via an ngrok tunnel. The app exposes the full preprocessing-to-prediction pipeline
 so that a raw EEG recording can be uploaded and classified without any local environment setup.
 
@@ -254,11 +212,11 @@ so that a raw EEG recording can be uploaded and classified without any local env
 The app (`app.py`) is written as a single-file Streamlit application. Navigation is provided by a
 sidebar with three pages:
 
-**1 — Diagnosis Tool**
+1 — Diagnosis Tool
 The core clinical page. A clinician uploads the patient's EEG files, the embedded pipeline
 preprocesses them, extracts features, and the loaded SVM returns a subject-level classification.
 
-- Upload accepts **EEGLAB `.set`** + optional **`.fdt`** binary data file + optional **`events.tsv`**
+- Upload accepts EEGLAB `.set` + optional `.fdt` binary data file + optional `events.tsv`
 - The full preprocessing chain runs in-app, matching the training pipeline exactly:
   channel standardisation → bad channel detection & interpolation → average re-reference →
   bandpass/notch filter → resample to 250 Hz → ICA artefact removal → target epoch extraction
@@ -270,20 +228,20 @@ preprocesses them, extracts features, and the loaded SVM returns a subject-level
 - Results are displayed in a colour-coded card (red for Parkinson's, blue for Control) with
   plain-language phrasing and a clear disclaimer that the output supports — but does not replace —
   clinical judgement
-- An expandable **Quality checks** panel shows: available/missing channels, interpolated bad
+- An expandable Quality checks panel shows: available/missing channels, interpolated bad
   channels, ICA components removed, detected event annotation key and code, feature count, and
   a per-epoch probability table with CSV download
 
-**2 — About Us**
+2 — About Us
 Describes the project team and academic context.
 
-**3 — Ethical AI**
-Summarises the EthiCheck AI Ethics Assessment results (overall grade: **Good**; risk profile:
-**Medium**) and offers a download button for the full PDF report.
+3 — Ethical AI
+Summarises the EthiCheck AI Ethics Assessment results (overall grade: Good; risk profile:
+Medium) and offers a download button for the full PDF report.
 
 ### Running the App (Google Colab)
 
-**Prerequisites:** `best_svm_model.joblib` must be saved to Google Drive and the `MODEL_PATH`
+Prerequisites: `best_svm_model.joblib` must be saved to Google Drive and the `MODEL_PATH`
 constant in `app.py` updated to point to it before launching.
 
 ```python
@@ -300,7 +258,6 @@ constant in `app.py` updated to point to it before launching.
 
 # Cell 4 — authenticate ngrok and launch
 from pyngrok import ngrok
-import os
 
 ngrok.set_auth_token("YOUR_NGROK_AUTH_TOKEN")   # replace with your token
 ngrok.kill()
@@ -310,7 +267,7 @@ public_url = ngrok.connect(8501)
 print(public_url)   # open this URL to access the app
 ```
 
-> **Note:** Replace `YOUR_NGROK_AUTH_TOKEN` with your personal token from
+> Note: Replace `YOUR_NGROK_AUTH_TOKEN` with your personal token from
 > [ngrok.com](https://ngrok.com). The ngrok token in the repository notebook must be rotated
 > before sharing publicly.
 
@@ -344,7 +301,7 @@ print(public_url)   # open this URL to access the app
 | Aleeza Azad | Experimentation, analysis, model development |
 | Diba Dabiransari | Experimentation, analysis, model development |
 
-All members are final-year students on the **Applied Artificial Intelligence** undergraduate programme.
+All members are final-year students on the Applied Artificial Intelligence undergraduate programme.
 
 ---
 
@@ -394,7 +351,7 @@ pip install streamlit==1.44.1 mne==1.10.1 numpy==2.2.4 pandas==2.2.3 \
 
 ## 📈 Key Results
 
-All performance figures are derived from **cross-validation and held-out test evaluation only**.
+All performance figures are derived from cross-validation and held-out test evaluation only.
 Training-set figures are not reported as valid performance estimates.
 
 | Metric | Epoch-level | Subject-level |
@@ -417,7 +374,7 @@ Top SHAP findings:
 This project is intended for academic and educational purposes, EEG-based biomarker research, and
 demonstration of applied AI skills in healthcare contexts.
 
-It is **not intended for direct clinical deployment** without further clinical validation and regulatory
+It is not intended for direct clinical deployment without further clinical validation and regulatory
 approval.
 
 ---
@@ -436,6 +393,6 @@ approval.
 
 ## 🤖 AI Use Disclosure
 
-Generative AI tools were used **only as a supporting aid** for code assistance and documentation
+Generative AI tools were used only as a supporting aid for code assistance and documentation
 refinement. All technical decisions, implementations, analyses, and conclusions were developed by the
 project author(s).

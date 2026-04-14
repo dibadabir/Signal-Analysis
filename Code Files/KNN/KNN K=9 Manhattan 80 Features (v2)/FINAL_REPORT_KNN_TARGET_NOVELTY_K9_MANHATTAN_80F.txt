@@ -1,0 +1,198 @@
+================================================================================
+KNN CLASSIFICATION MODEL - FINAL REPORT
+Target + Novelty Concatenated Preprocessing
+Version: Conservative (K=9, Manhattan, 80 features)
+================================================================================
+
+DATASET SUMMARY
+--------------------------------------------------------------------------------
+Feature mode: target_novelty_concat
+Total epochs: 1299
+Features (input): 2784
+  → Target features: 1392
+  → Novelty features: 1392
+Total subjects: 47
+CTL samples: 632
+PD samples: 667
+Class balance: 51.35% PD
+
+MODEL CONFIGURATION
+--------------------------------------------------------------------------------
+Algorithm: K-Nearest Neighbors
+K value: 9
+Distance metric: manhattan
+Weights: uniform
+Cross-validation: 5-Fold StratifiedGroupKFold
+
+PREPROCESSING PIPELINE
+--------------------------------------------------------------------------------
+✓ Bad channel detection & interpolation
+✓ Average re-referencing
+✓ Notch filtering (60 Hz + harmonics)
+✓ Bandpass filtering (0.5-40 Hz)
+✓ ICA artifact removal (EOG components)
+✓ Channel selection (59 standard 10-20)
+✓ Event-locked epoching (-250 to +1250 ms)
+✓ Peak-to-peak artifact rejection (>150 µV)
+✓ Multi-stage artifact detection (PTP, kurtosis, muscle)
+✓ 1,392 Welch PSD features per condition
+✓ Target + Novelty concatenated (2,784 total features)
+✓ Trial matching (balanced target/novelty counts)
+
+TRAINING PIPELINE (Leakage Prevention)
+--------------------------------------------------------------------------------
+CRITICAL: Feature selection and scaling are performed INSIDE each CV fold
+to prevent data leakage and ensure unbiased performance estimates.
+
+Inside each fold:
+✓ Mutual Information feature selection → 80 features (on training data only)
+✓ StandardScaler normalization (fit on training data only)
+✓ KNN training on selected + scaled features
+✓ Validation data transformed using training-fitted selector/scaler
+
+PER-FOLD PERFORMANCE
+--------------------------------------------------------------------------------
+Fold   Train Acc    Val Acc      Val Sens     Val Spec     Val AUC     
+--------------------------------------------------------------------------------
+1      0.8679       0.5709       0.2712       0.8450       0.5122      
+2      0.8973       0.7126       0.9237       0.5194       0.8164      
+3      0.8647       0.6693       0.5517       0.8214       0.6774      
+4      0.9246       0.6978       0.6972       0.6985       0.8115      
+5      0.8931       0.7333       0.9444       0.4921       0.8439      
+
+MEAN PERFORMANCE METRICS (5-FOLD CV WITH IN-FOLD FEATURE SELECTION)
+--------------------------------------------------------------------------------
+Accuracy:           0.6768 ± 0.0636
+Sensitivity (Recall): 0.6777 ± 0.2798
+Specificity:        0.6753
+Precision:          0.6880 ± 0.0721
+F1 Score:           0.6553 ± 0.1644
+False Negative Rate: 0.3223
+ROC-AUC:            0.7323 ± 0.1243
+
+DETAILED FOLD-BY-FOLD RESULTS
+--------------------------------------------------------------------------------
+
+FOLD 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=1052, Val=247
+Subject counts: Train=38, Val=9
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8679  |  Val Accuracy:        0.5709
+Train Precision:        0.9167  |  Val Precision:       0.6154
+Train Recall:           0.8215  |  Val Recall:          0.2712
+Train F1 Score:         0.8665  |  Val F1 Score:        0.3765
+Train ROC-AUC:          0.9406  |  Val ROC-AUC:         0.5122
+
+Sensitivity (Recall):   0.2712  (True Positive Rate)
+Specificity:            0.8450  (True Negative Rate)
+False Negative Rate:    0.7288  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=109  FP=20 
+  FN=86   TP=32 
+
+FOLD 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=1052, Val=247
+Subject counts: Train=38, Val=9
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8973  |  Val Accuracy:        0.7126
+Train Precision:        0.8848  |  Val Precision:       0.6374
+Train Recall:           0.9235  |  Val Recall:          0.9237
+Train F1 Score:         0.9037  |  Val F1 Score:        0.7543
+Train ROC-AUC:          0.9647  |  Val ROC-AUC:         0.8164
+
+Sensitivity (Recall):   0.9237  (True Positive Rate)
+Specificity:            0.5194  (True Negative Rate)
+False Negative Rate:    0.0763  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=67   FP=62 
+  FN=9    TP=109
+
+FOLD 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=1042, Val=257
+Subject counts: Train=38, Val=9
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8647  |  Val Accuracy:        0.6693
+Train Precision:        0.9168  |  Val Precision:       0.8000
+Train Recall:           0.8027  |  Val Recall:          0.5517
+Train F1 Score:         0.8560  |  Val F1 Score:        0.6531
+Train ROC-AUC:          0.9544  |  Val ROC-AUC:         0.6774
+
+Sensitivity (Recall):   0.5517  (True Positive Rate)
+Specificity:            0.8214  (True Negative Rate)
+False Negative Rate:    0.4483  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=92   FP=20 
+  FN=65   TP=80 
+
+FOLD 4
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=1021, Val=278
+Subject counts: Train=37, Val=10
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.9246  |  Val Accuracy:        0.6978
+Train Precision:        0.9341  |  Val Precision:       0.7071
+Train Recall:           0.9181  |  Val Recall:          0.6972
+Train F1 Score:         0.9260  |  Val F1 Score:        0.7021
+Train ROC-AUC:          0.9794  |  Val ROC-AUC:         0.8115
+
+Sensitivity (Recall):   0.6972  (True Positive Rate)
+Specificity:            0.6985  (True Negative Rate)
+False Negative Rate:    0.3028  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=95   FP=41 
+  FN=43   TP=99 
+
+FOLD 5
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sample sizes: Train=1029, Val=270
+Subject counts: Train=37, Val=10
+Features: Input=2784, Selected=80
+
+Train Accuracy:         0.8931  |  Val Accuracy:        0.7333
+Train Precision:        0.8803  |  Val Precision:       0.6800
+Train Recall:           0.9140  |  Val Recall:          0.9444
+Train F1 Score:         0.8968  |  Val F1 Score:        0.7907
+Train ROC-AUC:          0.9644  |  Val ROC-AUC:         0.8439
+
+Sensitivity (Recall):   0.9444  (True Positive Rate)
+Specificity:            0.4921  (True Negative Rate)
+False Negative Rate:    0.0556  (Critical for PD diagnosis)
+
+Confusion Matrix:
+  TN=62   FP=64 
+  FN=8    TP=136
+
+================================================================================
+SUMMARY & INTERPRETATION
+================================================================================
+
+The conservative KNN model (K=9, Manhattan, 80 features) achieved a mean
+accuracy of 67.68% across 5-fold cross-validation, with ROC-AUC
+of 0.732, using target + novelty concatenated preprocessing.
+
+Key findings:
+• Sensitivity (recall): 67.77% - captures 68% of PD cases
+• Specificity: 67.53% - correctly identifies 68% of controls
+• False Negative Rate: 32.23% - misses 32% of actual PD cases
+• F1 Score: 0.6553 - balanced precision-recall performance
+
+Data leakage prevention:
+• Feature selection (mutual information) is performed independently within
+  each CV fold using training data only
+• Scaling (StandardScaler) is fit on training data only and applied to
+  validation data using training statistics
+• This ensures unbiased performance estimates and prevents information
+  about validation samples from influencing the model
+
+================================================================================

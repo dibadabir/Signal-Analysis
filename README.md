@@ -176,7 +176,7 @@ SHAP values are computed on the trained SVM to explain feature contributions:
 
 The project was evaluated against six responsible AI dimensions, achieving an average score of 7.77 / 10:
 
-![Ethical AI Radar Chart](<img width="724" height="716" alt="Ethic report" src="https://github.com/user-attachments/assets/48e7541c-c8fc-4a12-ad2c-f8f29cd7e6eb" />)
+![Ethical AI Radar Chart](https://github.com/dibadabir/Signal-Analysis/blob/main/Diagrams/Ethic%20report.png)
 
 Key practices underpinning these scores:
 

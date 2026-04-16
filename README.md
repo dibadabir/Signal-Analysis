@@ -319,26 +319,6 @@ pip install streamlit==1.44.1 mne==1.10.1 numpy==2.2.4 pandas==2.2.3 \
 
 ---
 
-## 📈 Key Results
-
-All performance figures are derived from cross-validation and held-out test evaluation only.
-Training-set figures are not reported as valid performance estimates.
-
-| Metric | Epoch-level | Subject-level |
-|---|---|---|
-| Accuracy | reported in `svm_metrics_summary.csv` | reported in `svm_metrics_summary.csv` |
-| Precision | reported in `svm_metrics_summary.csv` | reported in `svm_metrics_summary.csv` |
-| Recall | reported in `svm_metrics_summary.csv` | reported in `svm_metrics_summary.csv` |
-| F1 | reported in `svm_metrics_summary.csv` | reported in `svm_metrics_summary.csv` |
-| ROC-AUC | reported in `svm_metrics_summary.csv` | reported in `svm_metrics_summary.csv` |
-
-Top SHAP findings:
-- `P4_beta_rel` is the single most discriminative feature
-- `alpha_beta_ratio` is the most important feature group (19.3% of total SHAP importance)
-- P4, Fz, and F3 are the most informative EEG channels
-
----
-
 ## 🎓 Intended Use
 
 This project is intended for academic and educational purposes, EEG-based biomarker research, and

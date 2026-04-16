@@ -127,12 +127,6 @@ Frequency bands used:
 - Within train/val: 75% train — 25% validation via a second `GroupShuffleSplit`
 - Training set balanced by undersampling to equal class counts; cap of 60 epochs per subject
 
-#### SVM Pipeline
-```
-VarianceThreshold → StandardScaler → SelectKBest(f_classif, k=60)
-    → PCA(95% variance) → SVC(kernel='rbf', probability=True)
-```
-
 #### Hyperparameter Optimisation
 - `GridSearchCV` with inner `GroupKFold` (5 folds, subject-aware)
 - Grid: `C` ∈ {0.5, 1, 5, 10, 20}; `gamma` ∈ {scale, 0.01, 0.001};

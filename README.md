@@ -53,6 +53,14 @@ patterns related to Parkinson's disease using a three-stimulus auditory oddball 
 - Regular reflection and refinement of feature sets, hyperparameters, and regularisation strategy
 - Transparent version control via GitHub
 
+- ## 👥 Team
+
+| Name | Role |
+|---|---|
+| Justyna Dobersztajn | App interface & design, project management |
+| Aleeza Azad | Technical documentation & model development|
+| Diba Dabiransari | Model development & ethical analysis|
+
 ---
 
 ## 📊 Dataset Description
@@ -265,16 +273,6 @@ print(public_url)   # open this URL to access the app
 
 ---
 
-## 👥 Team
-
-| Name | Role |
-|---|---|
-| Justyna Dobersztajn | App interface & design, project development |
-| Aleeza Azad | Experimentation, analysis, model development |
-| Diba Dabiransari | Experimentation, analysis, model development |
-
----
-
 ## 🛠️ Technologies Used
 
 | Category | Library / Tool |
@@ -326,18 +324,6 @@ demonstration of applied AI skills in healthcare contexts.
 
 It is not intended for direct clinical deployment without further clinical validation and regulatory
 approval.
-
----
-
-## 🔮 Future Work
-
-- Nested cross-validation to produce fully unbiased performance estimates
-- Extension to PD-ON vs CTL and PD-ON vs PD-OFF comparisons
-- Integration of resting-state EEG features alongside oddball task features
-- Multimodal fusion with clinical scores (UPDRS, years since diagnosis)
-- Deep learning classification via EEGNet (Lawhern et al., 2018)
-- Cross-dataset validation to assess generalisability
-- Exploration of transformer-based EEG architectures
 
 ---
 

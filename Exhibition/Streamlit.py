@@ -989,7 +989,7 @@ Original file is located at
 
 # from pyngrok import ngrok
 #
-# ngrok.set_auth_token(...)  # load from env/secure config in interactive use
+# ngrok.set_auth_token(...)  # e.g. load from os.environ.get("NGROK_AUTH_TOKEN")
 # ngrok.kill()
 # get_ipython().system_raw("streamlit run /content/app.py --server.port 8501 &")
 # public_url = ngrok.connect(8501, domain="stannic-nonprecedential-kirby.ngrok-free.dev")

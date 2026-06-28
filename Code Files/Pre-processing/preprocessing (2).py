@@ -369,7 +369,11 @@ def select_subject_files(
     if info is None:
         return []
 
-    wanted = set(info["sessions_to_keep"])
+    wanted = {
+        session_name
+        for session_name, session_info in info.get("sessions", {}).items()
+        if session_info.get("keep")
+    }
     files  = layout.get(
         subject=subj,
         extension=[".set", ".vhdr", ".edf", ".eeg", ".cnt", ".bdf"],
@@ -872,7 +876,11 @@ for subj in tqdm(subjects, desc="Preprocess binary PD/CTL subjects"):
     subject_summary.append({
         "subject":        subj,
         "group":          selection_map[subj]["group"],
-        "med_status":     med_label,          # CHANGED: ON / OFF / CTL
+        "med_status":     "/".join(sorted({
+            session_info["med"]
+            for session_info in selection_map[subj]["sessions"].values()
+            if session_info.get("keep") and session_info.get("med")
+        })),
         "strategy":       subj_strategy.name,
         "n_epochs":       len(merged),
         "n_channels":     len(merged.ch_names),

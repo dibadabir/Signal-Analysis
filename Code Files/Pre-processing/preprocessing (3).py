@@ -934,10 +934,6 @@ if len(epoch_files) == 0:
         "Stopping so you do not continue to modelling without data."
     )
 
-# ── Build the classification-ready single-trial dataset (Step4 equivalent) ──
-build_singletrial_dataset(participants_df)
-
-
 # ============================================================
 # NEW: Condition-specific epoch extraction — MATLAB Step4 equivalent
 # ============================================================
@@ -1164,3 +1160,7 @@ def build_singletrial_dataset(participants_df: pd.DataFrame) -> None:
         TRI_N= np.array(TRI_N,  dtype=object),
     )
     logger.info(f"Singletrial dataset saved -> {out_path}")
+
+
+# ── Build the classification-ready single-trial dataset (Step4 equivalent) ──
+build_singletrial_dataset(participants_df)

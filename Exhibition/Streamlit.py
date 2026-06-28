@@ -7,10 +7,10 @@ Original file is located at
     https://colab.research.google.com/drive/15m8W2ExPo0bMa2GDK74XGhZsQF3ygkc1
 """
 
-!pkill -f streamlit
-!pkill -f ngrok
+# !pkill -f streamlit
+# !pkill -f ngrok
 
-!pip -q install streamlit==1.44.1 mne==1.10.1 numpy==2.2.4 pandas==2.2.3 scipy==1.15.2 matplotlib==3.10.1 joblib==1.4.2 scikit-learn==1.6.1 pyngrok==7.2.5
+# !pip -q install streamlit==1.44.1 mne==1.10.1 numpy==2.2.4 pandas==2.2.3 scipy==1.15.2 matplotlib==3.10.1 joblib==1.4.2 scikit-learn==1.6.1 pyngrok==7.2.5
 
 # Commented out IPython magic to ensure Python compatibility.
 # %%writefile /content/app.py
@@ -987,16 +987,11 @@ Original file is located at
 # elif page == "Ethical AI":
 #     ethical_ai_page()
 
-from pyngrok import ngrok
-
-ngrok.set_auth_token("2ufAQDcal2zz2vrOtYKa93oNhNs_McaLd9CMTUk5yXKCCeSb")
-
-from pyngrok import ngrok
-import os
-
-ngrok.kill()
-
-get_ipython().system_raw("streamlit run /content/app.py --server.port 8501 &")
-
-public_url = ngrok.connect(8501, domain="stannic-nonprecedential-kirby.ngrok-free.dev")
-print(public_url)
+# from pyngrok import ngrok
+# import os
+#
+# ngrok.set_auth_token(os.environ["NGROK_AUTHTOKEN"])
+# ngrok.kill()
+# get_ipython().system_raw("streamlit run /content/app.py --server.port 8501 &")
+# public_url = ngrok.connect(8501, domain="stannic-nonprecedential-kirby.ngrok-free.dev")
+# print(public_url)

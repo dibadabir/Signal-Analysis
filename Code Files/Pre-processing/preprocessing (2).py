@@ -876,11 +876,14 @@ for subj in tqdm(subjects, desc="Preprocess binary PD/CTL subjects"):
     subject_summary.append({
         "subject":        subj,
         "group":          selection_map[subj]["group"],
-        "med_status":     "/".join(sorted({
-            session_info["med"]
-            for session_info in selection_map[subj]["sessions"].values()
-            if session_info.get("keep") and session_info.get("med")
-        })),
+        "med_status":     (
+            "/".join(sorted({
+                session_info["med"]
+                for session_info in selection_map[subj]["sessions"].values()
+                if session_info.get("keep") and session_info.get("med")
+            }))
+            or "UNKNOWN"
+        ),
         "strategy":       subj_strategy.name,
         "n_epochs":       len(merged),
         "n_channels":     len(merged.ch_names),

@@ -988,9 +988,8 @@ Original file is located at
 #     ethical_ai_page()
 
 # from pyngrok import ngrok
-# import os
 #
-# ngrok.set_auth_token(os.environ["NGROK_AUTHTOKEN"])
+# ngrok.set_auth_token(...)  # load from env/secure config in interactive use
 # ngrok.kill()
 # get_ipython().system_raw("streamlit run /content/app.py --server.port 8501 &")
 # public_url = ngrok.connect(8501, domain="stannic-nonprecedential-kirby.ngrok-free.dev")
